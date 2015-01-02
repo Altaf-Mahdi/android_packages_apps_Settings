@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014 The CyanogenMod Project
+* Copyright (C) 2015 The CyanogenMod Project
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ import android.provider.Settings;
 import com.android.internal.logging.MetricsLogger;
 
 import com.android.settings.R;
+import com.android.settings.cyanogenmod.qs.QSTiles;
 import com.android.settings.SettingsPreferenceFragment;
 
 public class NotificationDrawerSettings extends SettingsPreferenceFragment
@@ -36,6 +37,7 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment
     private static final String QUICK_PULLDOWN = "quick_pulldown";
 
     private ListPreference mQuickPulldown;
+    private Preference mQSTiles;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,10 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment
     @Override
     public void onResume() {
         super.onResume();
+
+        int qsTileCount = QSTiles.determineTileCount(getActivity());
+        mQSTiles.setSummary(getResources().getQuantityString(R.plurals.qs_tiles_summary,
+                    qsTileCount, qsTileCount));
     }
 
     @Override
