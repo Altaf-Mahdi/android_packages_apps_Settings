@@ -95,4 +95,8 @@
     <!-- Device policy override -->
     <string name="device_policy_override_title">Device policy override</string>
     <string name="device_policy_override_summary">Allow apps to force secure lock screen and override profile settings</string>
+
+    <!-- Superuser indicator-->
+    <string name="su_indicator">Superuser indicator</string>
+    <string name="su_indicator_summary">Show superuser indicator when a session is active</string>
 </resources>
