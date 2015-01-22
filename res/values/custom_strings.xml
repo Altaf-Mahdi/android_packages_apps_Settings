@@ -165,6 +165,7 @@
     <string name="qs_tile_hotspot">Hotspot</string>
     <string name="qs_tile_nfc">NFC</string>
     <string name="qs_tile_compass">Compass</string>
+    <string name="qs_tile_lte">LTE</string>
 
     <!-- QuickSettings location tile -->
     <string name="qs_advanced_location_title">Advanced location quick settings</string>
