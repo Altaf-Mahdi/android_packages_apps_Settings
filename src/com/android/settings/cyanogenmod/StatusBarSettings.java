@@ -22,6 +22,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.provider.SearchIndexableResource;
 import android.provider.Settings;
@@ -51,6 +52,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private static final String STATUS_BAR_AM_PM = "status_bar_am_pm";
     private static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
     private static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
+    private static final String SHOW_CARRIER_LABEL = "status_bar_show_carrier";
 
     private static final int STATUS_BAR_BATTERY_STYLE_HIDDEN = 4;
     private static final int STATUS_BAR_BATTERY_STYLE_TEXT = 6;
@@ -59,6 +61,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private ListPreference mStatusBarAmPm;
     private ListPreference mStatusBarBattery;
     private ListPreference mStatusBarBatteryShowPercent;
+    private ListPreference mShowCarrierLabel;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -66,6 +69,8 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         addPreferencesFromResource(R.xml.status_bar_settings);
 
         ContentResolver resolver = getActivity().getContentResolver();
+
+        PreferenceScreen prefSet = getPreferenceScreen();
 
         mStatusBarClock = (ListPreference) findPreference(STATUS_BAR_CLOCK_STYLE);
         mStatusBarAmPm = (ListPreference) findPreference(STATUS_BAR_AM_PM);
@@ -102,6 +107,18 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         mStatusBarBatteryShowPercent.setSummary(mStatusBarBatteryShowPercent.getEntry());
         enableStatusBarBatteryDependents(batteryStyle);
         mStatusBarBatteryShowPercent.setOnPreferenceChangeListener(this);
+
+        mShowCarrierLabel =
+                (ListPreference) findPreference(SHOW_CARRIER_LABEL);
+        int showCarrierLabel = Settings.System.getInt(resolver,
+                Settings.System.STATUS_BAR_SHOW_CARRIER, 1);
+        mShowCarrierLabel.setValue(String.valueOf(showCarrierLabel));
+        mShowCarrierLabel.setSummary(mShowCarrierLabel.getEntry());
+        mShowCarrierLabel.setOnPreferenceChangeListener(this);
+
+        if (!Utils.isVoiceCapable(getActivity())) {
+            prefSet.removePreference(mShowCarrierLabel);
+        }
     }
 
     @Override
@@ -154,6 +171,13 @@ public class StatusBarSettings extends SettingsPreferenceFragment
                     resolver, CMSettings.System.STATUS_BAR_SHOW_BATTERY_PERCENT, batteryShowPercent);
             mStatusBarBatteryShowPercent.setSummary(
                     mStatusBarBatteryShowPercent.getEntries()[index]);
+            return true;
+        } else if (preference == mShowCarrierLabel) {
+            int showCarrierLabel = Integer.valueOf((String) newValue);
+            int index = mShowCarrierLabel.findIndexOfValue((String) newValue);
+            Settings.System.putInt(resolver, Settings.System.
+                STATUS_BAR_SHOW_CARRIER, showCarrierLabel);
+            mShowCarrierLabel.setSummary(mShowCarrierLabel.getEntries()[index]);
             return true;
         }
         return false;
