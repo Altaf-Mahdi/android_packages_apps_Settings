@@ -168,6 +168,7 @@
     <string name="qs_tile_lte">LTE</string>
     <string name="qs_tile_screen_timeout">Screen timeout</string>
     <string name="qs_tile_usb_tether">USB tethering</string>
+    <string name="qs_tile_heads_up">Heads up</string>
 
     <!-- QuickSettings location tile -->
     <string name="qs_advanced_location_title">Advanced location quick settings</string>
