@@ -138,6 +138,7 @@
                 android:title="@string/button_pref_title"
                 android:fragment="com.android.settings.ButtonSettings"
                 android:icon="@drawable/ic_settings_buttons"
+                settings:advanced="true"
                 />
 
         <!-- O-Click -->
@@ -218,6 +219,7 @@
                 android:fragment="com.android.settings.profiles.ProfilesSettings"
                 android:title="@string/profiles_settings_title"
                 android:icon="@drawable/ic_settings_profiles"
+                settings:advanced="true"
                 />
 
         <!-- Status bar -->
