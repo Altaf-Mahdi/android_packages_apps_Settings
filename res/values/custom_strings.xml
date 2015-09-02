@@ -542,4 +542,6 @@
     <string name="device_policy_override_title">Device policy override</string>
     <string name="device_policy_override_summary">Allow apps to force secure lock screen and override profile settings</string>
 
+    <!-- Pie control -->
+    <string name="pa_pie_control_title">Pie Control</string>
 </resources>
