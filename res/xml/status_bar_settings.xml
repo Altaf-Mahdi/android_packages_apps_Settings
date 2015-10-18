@@ -63,4 +63,10 @@
         android:title="@string/status_bar_notif_count_title"
         android:summary="@string/status_bar_notif_count_summary"
         android:defaultValue="false" />
+
+     <com.android.settings.cyanogenmod.SecureSettingSwitchPreference
+        android:key="heads_up_show_status_button"
+        android:title="@string/show_headsup_button_title"
+        android:summary="@string/show_headsup_button_summary"
+        android:defaultValue="false" />
 </PreferenceScreen>
