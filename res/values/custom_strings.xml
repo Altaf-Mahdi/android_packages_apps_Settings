@@ -237,6 +237,10 @@
     <string name="notification_light_missed_call_title">Missed call</string>
     <string name="notification_light_voicemail_title">Voicemail</string>
 
+    <!-- Lights settings, force led notification -->
+    <string name="force_led_notification_title">Notification light settings</string>
+    <string name="force_led_notification_text">The notification light has been forced on by settings</string>
+
     <!-- Heads up -->
     <string name="headsup_section_header">Heads up notifications</string>
     <string name="heads_up_notifications">Heads up</string>
