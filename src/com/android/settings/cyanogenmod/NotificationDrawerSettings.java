@@ -43,6 +43,8 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.notification_drawer_settings);
+
+        mQSTiles = findPreference("qs_order");
     }
 
     @Override
