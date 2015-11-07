@@ -158,6 +158,7 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
     private static final String USB_CONFIGURATION_KEY = "select_usb_configuration";
     private static final String WIFI_LEGACY_DHCP_CLIENT_KEY = "legacy_dhcp_client";
     private static final String MOBILE_DATA_ALWAYS_ON = "mobile_data_always_on";
+    private static final String KEY_COLOR_MODE = "color_mode";
 
     private static final String INACTIVE_APPS_KEY = "inactive_apps";
 
@@ -264,6 +265,9 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
 
     private SwitchPreference mKillAppLongpressBack;
     private AnimationScalePreference mKillAppLongpressDelay;
+
+    private ColorModePreference mColorModePreference;
+
 
     private final ArrayList<Preference> mAllPrefs = new ArrayList<Preference>();
 
@@ -425,6 +429,13 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
             mAllPrefs.add(hdcpChecking);
             removePreferenceForProduction(hdcpChecking);
         }
+
+        mColorModePreference = (ColorModePreference) findPreference(KEY_COLOR_MODE);
+        mColorModePreference.updateCurrentAndSupported();
+        if (mColorModePreference.getTransformsCount() < 2) {
+            removePreference(KEY_COLOR_MODE);
+            mColorModePreference = null;
+        }
     }
 
     private ListPreference addListPreference(String prefKey) {
@@ -539,6 +550,19 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
         }
         mSwitchBar.show();
         updateKillAppLongpressBackOptions();
+
+        if (mColorModePreference != null) {
+            mColorModePreference.startListening();
+            mColorModePreference.updateCurrentAndSupported();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mColorModePreference != null) {
+            mColorModePreference.stopListening();
+        }
     }
 
     @Override
