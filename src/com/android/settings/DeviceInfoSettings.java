@@ -34,7 +34,9 @@ import android.support.v7.preference.PreferenceGroup;
 import android.telephony.CarrierConfigManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
 
 import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.settings.dashboard.SummaryLoader;
@@ -83,7 +85,7 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
 
     long[] mHits = new long[3];
     int mDevHitCountdown;
-    Toast mDevHitToast;
+    SnackbarManager mDevHitSnackbar;
 
     private UserManager mUm;
 
@@ -219,7 +221,7 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         mDevHitCountdown = getActivity().getSharedPreferences(DevelopmentSettings.PREF_FILE,
                 Context.MODE_PRIVATE).getBoolean(DevelopmentSettings.PREF_SHOW,
                         android.os.Build.TYPE.equals("eng")) ? -1 : TAPS_TO_BE_A_DEVELOPER;
-        mDevHitToast = null;
+        mDevHitSnackbar = null;
         mFunDisallowedAdmin = RestrictedLockUtils.checkIfRestrictionEnforced(
                 getActivity(), UserManager.DISALLOW_FUN, UserHandle.myUserId());
         mFunDisallowedBySystem = RestrictedLockUtils.hasBaseUserRestriction(
@@ -255,6 +257,7 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
                 }
             }
         } else if (preference.getKey().equals(KEY_BUILD_NUMBER)) {
+            Context mContext = getActivity().getApplicationContext();
             // Don't enable developer options for secondary users.
             if (!mUm.isAdminUser()) return true;
 
@@ -272,40 +275,46 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
                 return true;
             }
 
+            final Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.setClassName("com.android.settings",
+                    "com.android.settings.DevelopmentSettings");
+            final String label = getString(R.string.dev_settings_action_button);
+
             if (mDevHitCountdown > 0) {
                 mDevHitCountdown--;
                 if (mDevHitCountdown == 0) {
-                    getActivity().getSharedPreferences(DevelopmentSettings.PREF_FILE,
+                    mContext.getSharedPreferences(DevelopmentSettings.PREF_FILE,
                             Context.MODE_PRIVATE).edit().putBoolean(
                                     DevelopmentSettings.PREF_SHOW, true).apply();
-                    if (mDevHitToast != null) {
-                        mDevHitToast.cancel();
+                    if (mDevHitSnackbar != null) {
+                        mDevHitSnackbar.dismiss();
                     }
-                    mDevHitToast = Toast.makeText(getActivity(), R.string.show_dev_on_cm,
-                            Toast.LENGTH_LONG);
-                    mDevHitToast.show();
+                    final String message = getString(R.string.show_dev_on_cm);
+                    Utils.showSnackbar(message, Snackbar.SnackbarDuration.LENGTH_LONG,
+                            label, intent, getActivity());
                     // This is good time to index the Developer Options
                     Index.getInstance(
-                            getActivity().getApplicationContext()).updateFromClassNameResource(
+                            mContext).updateFromClassNameResource(
                                     DevelopmentSettings.class.getName(), true, true);
 
                 } else if (mDevHitCountdown > 0
                         && mDevHitCountdown < (TAPS_TO_BE_A_DEVELOPER-2)) {
-                    if (mDevHitToast != null) {
-                        mDevHitToast.cancel();
+                    if (mDevHitSnackbar != null) {
+                        mDevHitSnackbar.dismiss();
                     }
-                    mDevHitToast = Toast.makeText(getActivity(), getResources().getQuantityString(
-                            R.plurals.show_dev_countdown_cm, mDevHitCountdown, mDevHitCountdown),
-                            Toast.LENGTH_SHORT);
-                    mDevHitToast.show();
+                    final String message = getResources().getQuantityString(
+                            R.plurals.show_dev_countdown_cm,
+                            mDevHitCountdown, mDevHitCountdown);
+                    Utils.showSnackbar(message, Snackbar.SnackbarDuration.LENGTH_LONG,
+                            null, null, getActivity());
                 }
             } else if (mDevHitCountdown < 0) {
-                if (mDevHitToast != null) {
-                    mDevHitToast.cancel();
+                if (mDevHitSnackbar != null) {
+                    mDevHitSnackbar.dismiss();
                 }
-                mDevHitToast = Toast.makeText(getActivity(), R.string.show_dev_already_cm,
-                        Toast.LENGTH_LONG);
-                mDevHitToast.show();
+                final String message = getString(R.string.show_dev_already_cm);
+                Utils.showSnackbar(message, Snackbar.SnackbarDuration.LENGTH_LONG,
+                        label, intent, getActivity());
             }
         } else if (preference.getKey().equals(KEY_DEVICE_FEEDBACK)) {
             sendFeedback();
