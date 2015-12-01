@@ -53,7 +53,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.nispok.snackbar.Snackbar;
 
 import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.internal.telephony.PhoneConstants;
@@ -62,6 +63,8 @@ import com.android.internal.telephony.dataconnection.ApnSetting;
 import com.android.internal.telephony.uicc.IccRecords;
 import com.android.internal.telephony.uicc.UiccController;
 import com.android.settingslib.RestrictedLockUtils.EnforcedAdmin;
+
+import com.android.settings.Utils;
 
 import java.util.ArrayList;
 
@@ -537,11 +540,8 @@ public class ApnSettings extends RestrictedSettingsFragment implements
                     // if current fragment is not visible, in background or Homekey is pressed,
                     // dismiss the dialog with state loss.
                     removeDialog(DIALOG_RESTORE_DEFAULTAPN, mApnSettingsHidden);
-                    Toast.makeText(
-                        activity,
-                        getResources().getString(
-                                R.string.restore_default_apn_completed),
-                        Toast.LENGTH_LONG).show();
+                    Utils.showSnackbar(getString(R.string.restore_default_apn_completed),
+                            Snackbar.SnackbarDuration.LENGTH_LONG, null, null, activity);
                     break;
             }
         }
