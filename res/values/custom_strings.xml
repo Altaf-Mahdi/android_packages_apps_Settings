@@ -139,4 +139,7 @@
     <!-- ATTENTION: RTL languages need to replace left with right -->
     <string name="recent_panel_lefty_mode_title">Show on the left edge</string>
     <string name="recent_panel_lefty_mode_summary">Show recent apps panel on the left edge</string>
+
+    <!-- Snackbar action button -->
+    <string name="dev_settings_action_button">Settings</string>
 </resources>

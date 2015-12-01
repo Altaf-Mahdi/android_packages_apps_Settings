@@ -28,7 +28,7 @@ import android.view.IWindowManager;
 import android.view.WindowManager;
 import android.view.WindowManagerGlobal;
 import android.view.WindowManagerImpl;
-import android.widget.Toast;
+
 import com.android.internal.view.RotationPolicy;
 import com.android.settings.DropDownPreference.Callback;
 import com.android.settings.search.BaseSearchIndexProvider;
