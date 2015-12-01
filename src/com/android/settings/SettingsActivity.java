@@ -136,6 +136,8 @@ import com.android.settingslib.drawer.DashboardCategory;
 import com.android.settingslib.drawer.SettingsDrawerActivity;
 import com.android.settingslib.drawer.Tile;
 
+import com.nispok.snackbar.SnackbarManager;
+
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
@@ -862,6 +864,7 @@ public class SettingsActivity extends SettingsDrawerActivity
         unregisterReceiver(mBatteryInfoReceiver);
         unregisterReceiver(mUserAddRemoveReceiver);
         mDynamicIndexableContentMonitor.unregister();
+        SnackbarManager.dismiss();
     }
 
     @Override
