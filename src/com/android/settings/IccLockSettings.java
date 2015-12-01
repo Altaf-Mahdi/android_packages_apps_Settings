@@ -37,12 +37,15 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import com.nispok.snackbar.Snackbar;
 
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.telephony.Phone;
 import com.android.internal.telephony.PhoneFactory;
 import com.android.internal.telephony.TelephonyIntents;
+
+import com.android.settings.Utils;
 
 /**
  * Implements the preference screen to enable/disable ICC lock and
@@ -403,8 +406,8 @@ public class IccLockSettings extends InstrumentedPreferenceActivity
         if (success) {
             mPinToggle.setChecked(mToState);
         } else {
-            Toast.makeText(this, getPinPasswordErrorMessage(attemptsRemaining), Toast.LENGTH_LONG)
-                    .show();
+            Utils.showSnackbar(getPinPasswordErrorMessage(attemptsRemaining),
+                    Snackbar.SnackbarDuration.LENGTH_LONG, null, null, this);
         }
         mPinToggle.setEnabled(true);
         resetDialogState();
@@ -412,13 +415,11 @@ public class IccLockSettings extends InstrumentedPreferenceActivity
 
     private void iccPinChanged(boolean success, int attemptsRemaining) {
         if (!success) {
-            Toast.makeText(this, getPinPasswordErrorMessage(attemptsRemaining),
-                    Toast.LENGTH_LONG)
-                    .show();
+            Utils.showSnackbar(getPinPasswordErrorMessage(attemptsRemaining),
+                    Snackbar.SnackbarDuration.LENGTH_LONG, null, null, this);
         } else {
-            Toast.makeText(this, mRes.getString(R.string.sim_change_succeeded),
-                    Toast.LENGTH_SHORT)
-                    .show();
+            Utils.showSnackbar(mRes.getString(R.string.sim_change_succeeded),
+                    Snackbar.SnackbarDuration.LENGTH_SHORT, null, null, this);
 
         }
         resetDialogState();
