@@ -256,11 +256,13 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             }
         }
 
-        if (isCameraGestureAvailable(getResources())) {
-            mCameraGesturePreference = (SwitchPreference) findPreference(KEY_CAMERA_GESTURE);
+        mCameraGesturePreference = (SwitchPreference) findPreference(KEY_CAMERA_GESTURE);
+        if (mCameraGesturePreference != null && isCameraGestureAvailable(getResources())) {
             mCameraGesturePreference.setOnPreferenceChangeListener(this);
         } else {
-            removePreference(KEY_CAMERA_GESTURE);
+            if (displayPrefs != null && mCameraGesturePreference != null) {
+                displayPrefs.removePreference(mCameraGesturePreference);
+            }
         }
 
         mNightModePreference = (ListPreference) findPreference(KEY_NIGHT_MODE);
@@ -276,13 +278,19 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         if (mTapToWakePreference != null && isTapToWakeAvailable(getResources())) {
             mTapToWakePreference.setOnPreferenceChangeListener(this);
         } else {
-            removePreference(KEY_TAP_TO_WAKE);
+            if (displayPrefs != null && mTapToWakePreference != null) {
+                displayPrefs.removePreference(mTapToWakePreference);
+            }
         }
 
         boolean proximityCheckOnWait = getResources().getBoolean(
                 org.cyanogenmod.platform.internal.R.bool.config_proximityCheckOnWake);
         if (!proximityCheckOnWait) {
-            removePreference(KEY_PROXIMITY_WAKE);
+            SwitchPreference mProximityWakePreference =
+                    (SwitchPreference) findPreference(KEY_PROXIMITY_WAKE);
+            if (displayPrefs != null && mProximityWakePreference != null) {
+                displayPrefs.removePreference(mProximityWakePreference);
+            }
             CMSettings.System.putInt(getContentResolver(), CMSettings.System.PROXIMITY_ON_WAKE, 1);
         }
 
