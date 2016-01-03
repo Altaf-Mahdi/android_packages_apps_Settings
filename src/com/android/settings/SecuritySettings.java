@@ -293,6 +293,16 @@ public class SecuritySettings extends SettingsPreferenceFragment
                         R.string.lockpattern_settings_power_button_instantly_locks_summary,
                         trustAgentPreference.getTitle()));
             }
+
+            // Blur
+            mBlurRadius =
+                    (SeekBarPreference) findPreference(KEY_BLUR_RADIUS);
+            if (mBlurRadius != null) {
+                int blurRadius = Settings.System.getInt(getContentResolver(),
+                        Settings.System.LOCKSCREEN_BLUR_RADIUS, 18);
+                mBlurRadius.setValue(blurRadius);
+                mBlurRadius.setOnPreferenceChangeListener(this);
+            }
         } else {
             // Append the rest of the settings
             addPreferencesFromResource(R.xml.security_settings_misc);
@@ -358,16 +368,6 @@ public class SecuritySettings extends SettingsPreferenceFragment
             if (um.hasUserRestriction(UserManager.DISALLOW_INSTALL_UNKNOWN_SOURCES)
                     || um.hasUserRestriction(UserManager.DISALLOW_INSTALL_APPS)) {
                 mToggleAppInstallation.setEnabled(false);
-            }
-
-            // Blur
-            mBlurRadius =
-                    (SeekBarPreference) findPreference(KEY_BLUR_RADIUS);
-            if (mBlurRadius != null) {
-                int blurRadius = Settings.System.getInt(getContentResolver(),
-                        Settings.System.LOCKSCREEN_BLUR_RADIUS, 18);
-                mBlurRadius.setValue(blurRadius);
-                mBlurRadius.setOnPreferenceChangeListener(this);
             }
 
             // Advanced Security features
