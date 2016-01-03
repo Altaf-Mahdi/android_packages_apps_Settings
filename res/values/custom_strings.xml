@@ -26,10 +26,6 @@
     <string name="changelog_title_summary">View recent changes in the ROM</string>
     <string name="changelog_error">Unable to load changelog</string>
 
-    <!-- Heads up -->
-    <string name="show_headsup_button_title">Quick access button</string>
-    <string name="show_headsup_button_summary">Show a quick access button in the status bar header</string>
-
     <!--Status bar carrier -->
     <string name="show_carrier_title">Carrier label</string>
     <string name="show_carrier_disabled">Disabled</string>
