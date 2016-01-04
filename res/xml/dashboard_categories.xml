@@ -237,6 +237,14 @@
                 android:icon="@drawable/ic_settings_extdesk_hidenavbar"
                 />
 
+        <!-- Recents panel options -->
+        <dashboard-tile
+                android:id="@+id/recent_panel_settings"
+                android:title="@string/recent_panel_title"
+                android:fragment="com.android.settings.euphoria.RecentPanel"
+                android:icon="@drawable/ic_settings_recents"
+                />
+
         <!-- Application Settings -->
         <dashboard-tile
                 android:id="@+id/application_settings"
