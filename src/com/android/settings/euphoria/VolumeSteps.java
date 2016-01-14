@@ -33,9 +33,10 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.internal.logging.MetricsLogger;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+
+import org.cyanogenmod.internal.logging.CMMetricsLogger;
 
 public class VolumeSteps extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -152,8 +153,7 @@ public class VolumeSteps extends SettingsPreferenceFragment implements
 
     @Override
     protected int getMetricsCategory() {
-        // todo add a constant in MetricsLogger.java
-        return MetricsLogger.MAIN_SETTINGS;
+        return CMMetricsLogger.DONT_LOG;
     }
 
     private int getDefaultSteps(Preference pref) {

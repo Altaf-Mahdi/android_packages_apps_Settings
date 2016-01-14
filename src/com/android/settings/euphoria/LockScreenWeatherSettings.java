@@ -24,11 +24,11 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 
-import com.android.internal.logging.MetricsLogger;
-
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.euphoria.SeekBarPreference;
+
+import org.cyanogenmod.internal.logging.CMMetricsLogger;
 
 public class LockScreenWeatherSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -82,8 +82,7 @@ public class LockScreenWeatherSettings extends SettingsPreferenceFragment implem
 
     @Override
     protected int getMetricsCategory() {
-        // todo add a constant in MetricsLogger.java
-        return MetricsLogger.MAIN_SETTINGS;
+        return CMMetricsLogger.DONT_LOG;
     }
 
     @Override
