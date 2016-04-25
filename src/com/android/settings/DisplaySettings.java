@@ -93,6 +93,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_WALLPAPER = "wallpaper";
     private static final String KEY_VR_DISPLAY_PREF = "vr_display_pref";
 
+    private static final String KEY_DOZE_PACKAGE_NAME = "com.cyanogenmod.settings.doze";
+
     private Preference mFontSizePref;
 
     private TimeoutListPreference mScreenTimeoutPreference;
@@ -153,7 +155,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
 
             mDozePreference = (SwitchPreference) findPreference(KEY_DOZE);
             if (mDozePreference != null) {
-                if (isDozeAvailable(activity)) {
+                if (isDozeAvailable(activity) &&
+                        !Utils.isPackageInstalled(getActivity(), KEY_DOZE_PACKAGE_NAME)) {
                     mDozePreference.setOnPreferenceChangeListener(this);
                 } else {
                     displayPrefs.removePreference(mDozePreference);
