@@ -116,6 +116,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_BATTERY_LIGHT = "battery_light";
     private static final String KEY_LIVEDISPLAY = "live_display";
 
+    private static final String KEY_DOZE_PACKAGE_NAME = "com.cyanogenmod.settings.doze";
+
     private static final int DLG_GLOBAL_CHANGE_WARNING = 1;
 
     private ListPreference mLcdDensityPreference;
@@ -261,7 +263,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         }
 
         mDozePreference = (SwitchPreference) findPreference(KEY_DOZE);
-        if (mDozePreference != null && Utils.isDozeAvailable(activity)) {
+        if (mDozePreference != null && Utils.isDozeAvailable(activity)
+                    && !Utils.isPackageInstalled(getActivity(), KEY_DOZE_PACKAGE_NAME)) {
             mDozePreference.setOnPreferenceChangeListener(this);
         } else {
             if (displayPrefs != null && mDozePreference != null) {
