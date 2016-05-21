@@ -26,4 +26,8 @@
     <string name="double_tap_to_sleep_lock_screen_title">Double-tap to sleep</string>
     <string name="double_tap_to_sleep_lock_screen_summary">Double-tap on the lock screen to turn off the display</string>
 
+    <!-- Force heads up for all apps -->
+    <string name="force_headsup_title">Force heads up</string>
+    <string name="force_headsup_summary">Force heads up in all applications</string>
+
 </resources>

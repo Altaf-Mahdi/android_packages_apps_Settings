@@ -25,6 +25,13 @@
             android:summaryOn="@string/summary_heads_up_enabled"
             android:summaryOff="@string/summary_heads_up_disabled" />
 
+    <!-- Heads up force all -->
+    <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+           android:key="heads_up_force_all"
+           android:title="@string/force_headsup_title"
+           android:summary="@string/force_headsup_summary"
+           android:defaultValue="false" />
+
     <!-- Zen Mode -->
     <PreferenceScreen
             android:key="zen_mode"
