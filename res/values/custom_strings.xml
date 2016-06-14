@@ -30,4 +30,8 @@
     <string name="force_headsup_title">Force heads up</string>
     <string name="force_headsup_summary">Force heads up in all applications</string>
 
+    <!-- Superuser indicator-->
+    <string name="su_indicator">Superuser indicator</string>
+    <string name="su_indicator_summary">Show superuser indicator when a session is active</string>
+
 </resources>
