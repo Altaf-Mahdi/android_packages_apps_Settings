@@ -103,6 +103,12 @@
             android:title="@string/lockscreen_weather_enabled_title"
             android:defaultValue="false"/>
 
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+            android:key="double_tap_sleep_lock_screen"
+            android:title="@string/double_tap_to_sleep_lock_screen_title"
+            android:summary="@string/double_tap_to_sleep_lock_screen_summary"
+            android:defaultValue="true" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

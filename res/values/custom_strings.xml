@@ -18,8 +18,12 @@
     <!-- Snackbar action button -->
     <string name="dev_settings_action_button">Settings</string>
 
-    <!-- Double Tap Navbar to Sleep -->
+    <!-- Double tap navbar to sleep -->
     <string name="double_tap_sleep_nav_bar_title">Double-tap to sleep</string>
     <string name="double_tap_sleep_nav_bar_summary">Double tap navigation bar to put the device to sleep</string>
+
+    <!-- Double tap locck screen to sleep -->
+    <string name="double_tap_to_sleep_lock_screen_title">Double-tap to sleep</string>
+    <string name="double_tap_to_sleep_lock_screen_summary">Double-tap on the lock screen to turn off the display</string>
 
 </resources>
