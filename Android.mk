@@ -24,9 +24,6 @@ LOCAL_AAPT_FLAGS := \
     --auto-add-overlay \
     --extra-packages com.nispok.snackbar
 
-LOCAL_SRC_FILES += \
-        src/com/android/display/IPPService.aidl
-
 LOCAL_PACKAGE_NAME := Settings
 LOCAL_CERTIFICATE := platform
 LOCAL_PRIVILEGED_MODULE := true
