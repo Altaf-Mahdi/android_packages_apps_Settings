@@ -104,7 +104,7 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
     SnackbarManager mDevHitSnackbar;
 
     int mDevIdCountdown;
-    Toast mDevIdToast;
+    SnackbarManager mDevIdSnackbar;
 
     @Override
     protected int getMetricsCategory() {
@@ -242,7 +242,7 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         mDevHitSnackbar = null;
 
         mDevIdCountdown = TAPS_TO_SHOW_DEVICEID;
-        mDevIdToast = null;
+        mDevIdSnackbar = null;
     }
 
     @Override
@@ -285,9 +285,9 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
             if (mDevIdCountdown == 0) {
                 final CMHardwareManager hwMgr = CMHardwareManager.getInstance(getActivity().getApplicationContext());
                 final String deviceID = hwMgr.getUniqueDeviceId();
-                CharSequence msg;
+                final String msg;
                 if (deviceID == null) {
-                    msg = getText(R.string.show_device_id_failed_cm);
+                    msg = getResources().getString(R.string.show_device_id_failed_cm);
                 }
                 else {
                     final ClipboardManager clipboardMgr = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -298,21 +298,21 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
                             R.string.show_device_id_copied_cm, deviceID);
                 }
 
-                mDevIdToast = Toast.makeText(getActivity(), msg,
-                        Toast.LENGTH_LONG);
-                mDevIdToast.show();
+                Utils.showSnackbar(msg, Snackbar.SnackbarDuration.LENGTH_LONG,
+                        null, null, getActivity());
                 mDevIdCountdown = TAPS_TO_SHOW_DEVICEID;
             }
             else if (mDevIdCountdown > 0
                     && mDevIdCountdown < (TAPS_TO_SHOW_DEVICEID-2)) {
 
-                if (mDevIdToast != null) {
-                    mDevIdToast.cancel();
+                if (mDevIdSnackbar != null) {
+                    mDevIdSnackbar.dismiss();
                 }
-                mDevIdToast = Toast.makeText(getActivity(), getResources().getQuantityString(
-                        R.plurals.show_device_id_countdown_cm, mDevIdCountdown, mDevIdCountdown),
-                        Toast.LENGTH_SHORT);
-                mDevIdToast.show();
+                final String message = getResources().getQuantityString(
+                        R.plurals.show_device_id_countdown_cm,
+                        mDevIdCountdown, mDevIdCountdown);
+                Utils.showSnackbar(message, Snackbar.SnackbarDuration.LENGTH_LONG,
+                        null, null, getActivity());
             }
 
         } else if (preference.getKey().equals(KEY_BUILD_NUMBER)) {
